@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apka2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apka2
+  template:
+    metadata:
+      labels:
+        app: apka2
+    spec:
+      containers:
+        - name: apka2
+          image: apka2:latest # Zastąp nazwą swojego obrazu
+          imagePullPolicy: Never # NAJWAZNIEJSZE aby korzystac z lokalnego Image
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://database:5432/mydb
+            - name: SPRING_DATASOURCE_USERNAME
+              value: myuser
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: mypassword
