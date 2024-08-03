@@ -39,4 +39,10 @@ public class MessageController {
     public ResponseEntity<Message> deleteMessage(@PathVariable Long id){
         return ResponseEntity.ok(messageService.deleteMessage(id));
     }
+
+
+    @GetMapping("/test")
+    public ResponseEntity<String> readTest(){
+        return ResponseEntity.ok("Test API");
+    }
 }

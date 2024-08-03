@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: apka2
+  name: aplikacja
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: apka2
+      app: aplikacja
   template:
     metadata:
       labels:
-        app: apka2
+        app: aplikacja
     spec:
       containers:
-        - name: apka2
-          image: apka2:latest # Zastąp nazwą swojego obrazu
+        - name: aplikacja
+          image: aplikacja:latest # Zastąp nazwą swojego obrazu
           imagePullPolicy: Never # NAJWAZNIEJSZE aby korzystac z lokalnego Image
           ports:
             - containerPort: 8080
