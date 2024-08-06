@@ -2,6 +2,7 @@ package com.sebastiankrys.test.model;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,6 +16,7 @@ import lombok.*;
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Message {
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;

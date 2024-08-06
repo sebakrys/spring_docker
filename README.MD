@@ -66,3 +66,7 @@ Move to catalogue with kubernetes configuration files:
 Next to deploy all files which are located in one directory run:
 
 ```kubectl apply -f .```
+
+To deploy new image with the same name use:
+
+```kubectl rollout restart deployment aplikacja```

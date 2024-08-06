@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: aplikacja
 spec:
+  type: LoadBalancer # Lub NodePort dla dostępu zewnętrznego
   selector:
     app: aplikacja
   ports:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-  type: LoadBalancer # Lub NodePort dla dostępu zewnętrznego
