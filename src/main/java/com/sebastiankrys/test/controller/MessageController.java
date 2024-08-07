@@ -22,9 +22,6 @@ public class MessageController {
     @Autowired
     MessageService messageService;
 
-
-
-
     @PostMapping("/message")
     public ResponseEntity<Message> createMessage(@RequestBody Message message){
         return ResponseEntity.ok(messageService.createMessage(message));
@@ -33,45 +30,31 @@ public class MessageController {
     @GetMapping("/message/{uuid}")
     public ResponseEntity<Object> readMessage(@PathVariable String uuid){
         Message readedMessage = messageService.readMessage(uuid);
-        if(readedMessage==null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No message found with the provided UUID");
-        return ResponseEntity.ok(readedMessage);
+        return messageService.emptyOrNotExistingMessageResponse(readedMessage);
     }
 
     @GetMapping("/message/page/{pageNr}/{pageSize}")
     public ResponseEntity<Object> readPageMessages(@PathVariable int pageNr, @PathVariable int pageSize){
         Pageable pageable = PageRequest.of(pageNr, pageSize, Sort.by("id"));
         Page<Message> pageMessage = messageService.readPageMessages(pageable);
-        if(pageMessage.getNumberOfElements()<1)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No messages");
-        return ResponseEntity.ok(pageMessage.stream().toList());
+        return messageService.emptyOrNotExistingMessageResponse(pageMessage);
     }
 
     @PutMapping("/message/{uuid}")
     public ResponseEntity<Object> updateMessage(@PathVariable String uuid, @RequestBody Message message){
         Message updatedMessage = messageService.updateMessage(message, uuid);
-        if(updatedMessage==null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No message found with the provided UUID");
-        }
-        return ResponseEntity.ok(updatedMessage);
+        return messageService.emptyOrNotExistingMessageResponse(updatedMessage);
     }
 
     @DeleteMapping("/message/{uuid}")
     public ResponseEntity<Object> deleteMessage(@PathVariable String uuid){
         Message deletedMessage = messageService.deleteMessage(uuid);
-        if(deletedMessage==null) 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No message deleted with the provided UUID");
-        
-        return ResponseEntity.ok(deletedMessage);
+        return messageService.emptyOrNotExistingMessageResponse(deletedMessage);
     }
 
 
     @GetMapping("/test")
     public ResponseEntity<String> readTest(){
-        return ResponseEntity.ok("Test API 0.1.5");
+        return ResponseEntity.ok("Test API 0.1.7");
     }
 }
